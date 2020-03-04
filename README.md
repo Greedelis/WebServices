@@ -1,7 +1,7 @@
 # PC Parts List
 
 ## Launching app
-
+App runs on port 5000
 ``` docker-compose up ```
 
 ## Usage
