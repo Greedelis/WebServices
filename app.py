@@ -7,17 +7,20 @@ parts = [
     {'id' : 0,
      'manufacturer': 'AMD',
      'name': 'Ryzen 7 3800x',
-     'type': 'CPU'
+     'type': 'CPU',
+     'price': '331.90'
      },
     {'id': 1,
      'manufacturer': 'AMD',
      'name': 'Ryzen 5 3600',
-     'type': 'CPU'
+     'type': 'CPU',
+     'price': '181.00'
      },
     {'id': 2,
      'manufacturer': 'ASRock',
-     'name': 'AB350M PRO4',
-     'type': 'Motherboard'
+     'name': 'AB350 PRO4',
+     'type': 'Motherboard',
+     'price': '74.69'
      }
 ]
 
@@ -41,13 +44,14 @@ def api_parts():
             return jsonify(temp_parts)
         return jsonify(parts)
     if request.method == 'POST':
-        if 'name' in request.args and 'manufacturer' in request.args and 'type' in request.args and len(request.args) == 3:
+        if 'name' in request.args and 'manufacturer' in request.args and 'type' in request.args and 'price' in request.args and len(request.args) == 4:
             global new_id
             new_part = {
                 'id': new_id,
                 'manufacturer': request.args.get('manufacturer'),
                 'name': request.args.get('name'),
-                'type': request.args.get('type')
+                'type': request.args.get('type'),
+                'price': request.args.get('price')
             }
             parts.append(new_part)
             new_id+=1
@@ -64,7 +68,6 @@ def api_part_id(part_id):
     if len(part) == 0:
         abort(404)
     
-
     if request.method == 'GET':
         return jsonify(part)
 
@@ -84,6 +87,12 @@ def api_part_id(part_id):
         if 'type' in request.args:
             part[0]['type'] = request.args.get('type')
             return Response(status=201)
+        if 'price' in request.args:
+            part[0]['price'] = request.args.get('price')
+            return Response(status=201)
+        else:
+            abort(400)
+        
         
 
 if __name__ == '__main__':
