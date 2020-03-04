@@ -32,7 +32,7 @@ new_id = 3
 
 @app.route('/')
 def home():
-    return "<h1>PC parts list</h1>"
+    return "<h1>PC parts list</h1><a href='http://localhost:5000/api/parts'>All parts</a>"
 
 @app.route('/api/parts', methods = ['GET', 'POST'])
 def api_parts():
