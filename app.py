@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, abort, Response
+import json
 
 app = Flask(__name__)
 
@@ -43,7 +44,7 @@ def api_parts():
                 temp_parts.append({'id' : (part.get('id')), 'name': part.get('name')})
             return jsonify(temp_parts)
         return jsonify(parts)
-    if request.method == 'POST':
+    elif request.method == 'POST':
         if 'name' in request.args and 'manufacturer' in request.args and 'type' in request.args and 'price' in request.args and len(request.args) == 4:
             global new_id
             new_part = {
@@ -75,21 +76,21 @@ def api_part_id(part_id):
         for party in parts:
             if party['id'] == part_id:
                 parts.remove(party)
-                return Response(status=204)
+                return Response(json.dumps({'Success' : 'Deleted'}),status=204, mimetype='application/json')
     
     elif request.method == 'PUT':
         if 'name' in request.args:
             part[0]['name'] = request.args.get('name')
-            return Response(status=201)
+            return Response(json.dumps({'Success' : 'name has been changed'}), status=201,mimetype='application/json')
         if 'manufacturer' in request.args:
             part[0]['manufacturer'] = request.args.get('manufacturer')
-            return Response(status=201)
+            return Response(json.dumps({'Success' : 'manufacturer has been changed'}), status=201,mimetype='application/json')
         if 'type' in request.args:
             part[0]['type'] = request.args.get('type')
-            return Response(status=201)
+            return Response(json.dumps({'Success' : 'type has been changed'}), status=201,mimetype='application/json')
         if 'price' in request.args:
             part[0]['price'] = request.args.get('price')
-            return Response(status=201)
+            return Response(json.dumps({'Success' : 'price has been changed'}), status=201,mimetype='application/json')
         else:
             abort(400)
         
