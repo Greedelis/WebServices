@@ -32,14 +32,13 @@ App runs on port 5000
 "type": "D"
 }
 ```
-
 It will create new part:
-    {'id': max_id+1,
+    ```{'id': max_id+1,
      'manufacturer': "X",
      'name': "Y",
      'type': "Z",
      'price': "D"
-    }
+    }```
 
 ***Example***
 ```
@@ -50,7 +49,6 @@ It will create new part:
  "type": "CPU"
 }
 ```
-
 
 **Response**
 - On success - Address to new part ant status `201`
