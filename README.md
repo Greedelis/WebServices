@@ -1,7 +1,7 @@
 # PC Parts List
 
 ## Launching app
-App runs on port 5000
+App runs on port 5000, to run:
 ``` docker-compose up ```
 
 ## Usage
@@ -33,12 +33,15 @@ App runs on port 5000
 }
 ```
 It will create new part:
-    ```{'id': max_id+1,
-     'manufacturer': "X",
-     'name': "Y",
-     'type': "Z",
-     'price': "D"
-    }```
+```
+{'id': max_id+1,
+'manufacturer': "X",
+'name': "Y",
+'type': "Z",
+'price': "D"
+}
+```
+if put request dosent have one of manufaturer, name, price or type, web service will respond with error.
 
 ***Example***
 ```
@@ -75,9 +78,9 @@ You can change any value, by sending it as json, for example, to change <id> par
 
 ```{"name": "new_name"}```
 
-This will change <id> name to "new_name"
+This will change <id> parts name to "new_name"
 
-Same goes with manufacturer, price and type. You can change two fields at the same time. For example, chaging name and type of part, you need to send:
+Same goes with manufacturer, price and type. You can change two or more fields at the same time. For example, chaging name and type of part, you need to send:
 
 ```
 { 
