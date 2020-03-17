@@ -24,15 +24,33 @@ App runs on port 5000
 
 **Posting new part**
 
-```localhost:5000/api/parts?manufacturer=X&name=Y&type=Z&price=D```
+``` 
+{
+"manufacturer": "X",
+"name": "Y",
+"price": "Z",
+"type": "D"
+}
+```
 
 It will create new part:
     {'id': max_id+1,
-     'manufacturer': X,
-     'name': Y,
-     'type': Z,
-     'price': D
+     'manufacturer': "X",
+     'name': "Y",
+     'type': "Z",
+     'price': "D"
     }
+
+***Example***
+```
+{
+"manufacturer": "AMD",
+ "name": "Ryzen 3 2200G",
+ "price": "96.19",
+ "type": "CPU"
+}
+```
+
 
 **Response**
 - On success - Address to new part ant status `201`
@@ -52,21 +70,23 @@ It will create new part:
 
 **Changing values of specific part**
 
-***Changing part name***
 
-```http://localhost:5000/api/parts/<id>?name=new_name ```
+```http://localhost:5000/api/parts/<id>```
 
-***Changing part manufacturer***
+You can change any value, by sending it as json, for example, to change <id> parts name, you need to send put request with:
 
-```http://localhost:5000/api/parts/<id>?manufacturer=new_manufacturer ```
+```{"name": "new_name"}```
 
-***Changing part type***
+This will change <id> name to "new_name"
 
-```http://localhost:5000/api/parts/<id>?type=new_type ```
+Same goes with manufacturer, price and type. You can change two fields at the same time. For example, chaging name and type of part, you need to send:
 
-***Changing part price***
-
-```http://localhost:5000/api/parts/<id>?price=new_price ```
+```
+{ 
+"name": "new_name", 
+"type": "new_type"
+}
+```
 
 **Response**
 - On success - status `201`
