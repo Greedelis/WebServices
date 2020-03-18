@@ -58,7 +58,7 @@ def api_parts():
             }
             parts.append(new_part)
             new_id+=1
-            return Response(response=(json.dumps({"Success":"Part was added to http://localhost:5000/api/parts/"+str(new_id-1)})), status=201, mimetype="application/json")
+            return Response(response=(json.dumps({"Success":"Part was added"})), status=201, headers={"location": "/api/parts/"+str(new_id-1)}, mimetype="application/json")
         else:
             error_msg = "no "
             if "name" not in new_data:
@@ -112,7 +112,7 @@ def api_part_id(part_id):
         if "name" not in new_data and "manufacturer" not in new_data and "type" not in new_data and "price" not in new_data:
             return Response(json.dumps({"Failed" : "no "}))
 
-        return Response(json.dumps({"Success" : response}),status=201, mimetype="application/json")
+        return Response(json.dumps(part),status=200, mimetype="application/json")
 
         
 
