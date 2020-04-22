@@ -29,16 +29,18 @@ App runs on port 5000, to run:
 "manufacturer": "X",
 "name": "Y",
 "price": "Z",
-"type": "D"
+"type": "D",
+"phone_id" : "C"
 }
 ```
 It will create new part:
 ```
-{'id': max_id+1,
-'manufacturer': "X",
-'name': "Y",
-'type': "Z",
-'price': "D"
+{"id": max_id+1,
+"manufacturer": "X",
+"name": "Y",
+"type": "Z",
+"price": "D",
+"phone_id" : "C"
 }
 ```
 if put request dosent have one of manufaturer, name, price or type, web service will respond with error.
@@ -49,7 +51,8 @@ if put request dosent have one of manufaturer, name, price or type, web service 
 "manufacturer": "AMD",
  "name": "Ryzen 3 2200G",
  "price": "96.19",
- "type": "CPU"
+ "type": "CPU",
+ "phone_id": "1"
 }
 ```
 
@@ -92,3 +95,38 @@ Same goes with manufacturer, price and type. You can change two or more fields a
 **Response**
 - On success - status `201`
 - On failure - status `400`
+
+**Cheking phone on specific part**
+
+```http://localhost:5000/api/parts/<id>/phone```
+
+### GET
+
+**Response**
+- On success - status `201` and returns info about phone
+- On failure - status `400`
+**Getting all phones**
+
+### GET
+
+**Posting phone**
+
+```http://localhost:5000/api/phones ```
+
+Response returns all phones
+
+### POST
+
+```http://localhost:5000/api/phones ```
+
+```
+{"brand": "A",
+"model": "B",
+"price": "C",
+}
+```
+
+New phone will be created with auto generated ID
+Responses
+- 201 on success
+- 404 on failure
