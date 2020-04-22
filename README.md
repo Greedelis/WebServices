@@ -3,7 +3,8 @@
 ## Launching app
 App runs on port 5000, to run:
 ``` docker-compose up ```
-
+App comunicates with another service, that runs on port 5001
+(another service, that i used https://git.mif.vu.lt/arci4647/webhomework)
 ## Usage
 
 ### GET
@@ -122,7 +123,7 @@ Response returns all phones
 ```
 {"brand": "A",
 "model": "B",
-"price": "C",
+"price": "C"
 }
 ```
 
