@@ -17,6 +17,7 @@ app.route('/phones/')
         if (obj.brand && obj.model && obj.price) {
             var id = storage.add(obj);
             resp.location('/phones/' + id);
+            resp.set("id", id)
             resp.sendStatus(201);
             return;
         }

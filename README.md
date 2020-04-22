@@ -31,7 +31,7 @@ App comunicates with another service, that runs on port 5001
 "name": "Y",
 "price": "Z",
 "type": "D",
-"phone_id" : "C"
+"phone" : "C"
 }
 ```
 It will create new part:
@@ -41,24 +41,23 @@ It will create new part:
 "name": "Y",
 "type": "Z",
 "price": "D",
-"phone_id" : "C"
+"phone" : "C"
 }
 ```
 if put request dosent have one of manufaturer, name, price or type, web service will respond with error.
 
 ***Example***
 ```
-{
-"manufacturer": "AMD",
+{"manufacturer": "AMD",
  "name": "Ryzen 3 2200G",
  "price": "96.19",
  "type": "CPU",
- "phone_id": "1"
+ "phone": "1"
 }
 ```
 
 **Response**
-- On success - Address to new part ant status `201`
+- On success - Address to new part and status `201`
 - On failure - status `400`
 
 ### DELETE
@@ -131,3 +130,31 @@ New phone will be created with auto generated ID
 Responses
 - 201 on success
 - 404 on failure
+
+**Getting/Adding Parts info with full phone info**
+
+### GET
+
+```http://localhost:5000/api/fullParts```
+
+Response returns parts with full phone info
+
+### POST
+
+```
+{
+  "manufacturer": "A", 
+  "name": "B", 
+  "phone": {
+    "brand": "C", 
+    "model": "D", 
+    "price": "E"
+  }, 
+  "price": "F", 
+  "type": "G"
+}```
+
+Creates new part and new phone
+
+- On success - Address to new part and phone and returns status `201`
+- On failure - status `400`
