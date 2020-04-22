@@ -1,7 +1,24 @@
-web:
-    build: .
-    command: python app.py
-    ports:
-        - "5000:5000"
-    volumes:
-        - .:/code
+version: '3'
+
+services: 
+    web:
+        build: .
+        command: python app.py
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+        networks: 
+            - network
+        depends_on: 
+            - "arnweb"
+    arnweb:
+        build: ./arci
+        command: npm start
+        ports:
+            - "5001:5000"
+        networks: 
+            - network
+
+networks: 
+    network:
