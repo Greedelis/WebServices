@@ -10,8 +10,6 @@ services:
             - .:/code
         networks: 
             - network
-        depends_on: 
-            - "arnweb"
     arnweb:
         build: ./arci
         command: npm start

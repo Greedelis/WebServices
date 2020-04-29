@@ -155,16 +155,21 @@ def test():
         temp_parts = []
         for a in parts:
             b = a.copy()
-            req = requests.get(URL+"phones/"+str(a["phone"]))
-            #b["phone"] = []
-            b["phone"] = (req.json())
+            try:
+                req = requests.get(URL+"phones/"+str(a["phone"]))
+                b["phone"] = (req.json())
+            except requests.exceptions.RequestException as e:
+                print(e)
             temp_parts.append(b)
         return jsonify(temp_parts)
     else:
         new_data = request.get_json("force=True")
         phone_data = new_data["phone"]
         if request.method == "POST":
-            resp = requests.post(URL+"phones", json = (new_data["phone"]))
+            try:
+                resp = requests.post(URL+"phones", json = (new_data["phone"]))
+            except requests.exceptions.RequestException as e:
+                return Response(json.dumps({"Failure" : "Cant connect to server"}),status="503",mimetype="application/json")
             if str(resp.status_code) == "400" or str(resp.status_code) == "404":
                 return Response(json.dumps({"Failure" : resp.text}),status=resp.status_code,mimetype="application/json")
             else:
@@ -205,8 +210,11 @@ def fullpats(part_id):
     
     if request.method == "GET":
         b = part.copy()
-        req = requests.get(URL+"phones/"+(b[0]["phone"]))
-        b[0]["phone"] = (req.json())
+        try:
+            req = requests.get(URL+"phones/"+(b[0]["phone"]))
+            b[0]["phone"] = (req.json())
+        except requests.exceptions.RequestException as e:
+            print(e)
         return jsonify(b)
 
     elif request.method == "DELETE":
@@ -231,16 +239,16 @@ def fullpats(part_id):
             part[0]["price"] = new_data["price"]
             response += "price "
         if "phone" in new_data:
-            #return
-            requ = requests.put(URL+"phones/"+ str(part[0]["phone"]), json = new_data["phone"])
+            try:
+                requ = requests.put(URL+"phones/"+ str(part[0]["phone"]), json = new_data["phone"])
+                response += "phone "
+            except requests.exceptions.RequestException as e:
+                response += "(phone  could not be changed because of connection error)"
         response += "have been changed"
         if "name" not in new_data and "manufacturer" not in new_data and "type" not in new_data and "price" not in new_data and "phone" not in new_data:
             return Response(json.dumps({"Failed" : "no "}))
         
-        b = part.copy()
-        req = requests.get(URL+"phones/"+(b[0]["phone"]))
-        b[0]["phone"] = (req.json())
-        return jsonify(b)
-        return Response(json.dumps(b),status=200, mimetype="application/json")
+
+        return Response(json.dumps(part),status=200, mimetype="application/json")
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
